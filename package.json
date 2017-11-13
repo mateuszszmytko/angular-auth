@@ -1,15 +1,21 @@
 {
-  "name": "angular-auth",
-  "version": "1.0.0",
-  "description": "",
+  "name": "@raa/angular-auth",
+  "version": "0.1.2",
+  "description": "Simple authorize module for angular.",
   "main": "index.ts",
   "scripts": {
     "test": "karma start"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mateuszszmytko/angular-auth.git"
+  },
+  "homepage": "https://github.com/mateuszszmytko/angular-auth",
   "keywords": [
     "angular",
     "auth"
   ],
+  
   "devDependencies": {
     "@angular/cli": "^1.5.0",
     "@angular/common": "^5.0.0",
@@ -40,6 +46,10 @@
     "typescript": "^2.6.1",
     "zone.js": "^0.7.6"
   },
-  "author": "Raa",
+  "author": { 
+    "name" : "Mateusz Szmytko (@Raa)", 
+    "email" : "mateusz.szmytko@gmail.com", 
+    "url" : "http://mateusz-szmytko.pl/"
+  },
   "license": "ISC"
 }
