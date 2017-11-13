@@ -1,5 +1,4 @@
 # angular-auth
----
 Token based authentication module for Angular. 
 Which contains
 - services: `AuthService`, `CurrentUserService`, `TokenStorageService`
@@ -9,11 +8,9 @@ Which contains
 
 
 ## Installation
----
 Install **@Raa/angular-auth** via npm `npm install @Raa/angular-auth --save-dev`.
 
 ## Usage
----
 Import **AuthModule** in your main/core module and **SharedAuthModule** in your main/shared module. 
 ```typescript
 @NgModule({
