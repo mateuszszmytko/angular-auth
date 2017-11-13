@@ -4,4 +4,5 @@ export interface IAuthConfig {
 	apiRegisterPath: string;
 	loginRoute: any[];
 	registerRoute: any[];
+	contentType: string;
 }

@@ -14,7 +14,8 @@ export const defaultAuthConfig: IAuthConfig = {
 	apiTokenPath: '/auth/token',
 	apiRegisterPath: '/auth/register',
 	loginRoute: ['account', 'login'],
-	registerRoute: ['account', 'register']
+	registerRoute: ['account', 'register'],
+	contentType: 'application/json'
 };
 
 @NgModule({
