@@ -1,39 +1,48 @@
-import { NgModule, Optional, SkipSelf } from '@angular/core';
-import {  HttpClientModule } from '@angular/common/http';
-
-import { AuthGuard, AdminGuard } from './guards';
-import { IAuthConfig } from './auth.config';
-import { AuthService, Auth,
-	CurrentUser, CurrentUserService,
-	TokenStorage, TokenStorageService } from './services';
-import { SharedAuthModule } from './shared-auth.module';
+import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
+import {  HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
-export const defaultAuthConfig: IAuthConfig = {
-	apiEndpoint: 'http://localhost:52217/api',
-	apiTokenPath: '/auth/token',
-	apiRegisterPath: '/auth/register',
-	loginRoute: ['account', 'login'],
-	registerRoute: ['account', 'register'],
-	contentType: 'application/json'
-};
+import { TokenStorageService, 
+	AuthenticationService, IAuthenticationServiceConstructor } from './lib/services';
+import { IAuthModuleConfig } from './lib/interfaces';
+import { AuthInterceptor } from './lib/interceptors/auth.interceptor';
+
+
 
 @NgModule({
 	imports: [HttpClientModule],
 	providers: [
-		AuthGuard, AdminGuard,
-		{ provide: 'authConfig', useValue: defaultAuthConfig },	
-		{ provide: TokenStorageService, useClass: TokenStorage},
-		{ provide: AuthService, useClass: Auth},
-		{ provide: CurrentUserService, useClass: CurrentUser},
-		
+		{ provide: TokenStorageService, useClass: TokenStorageService},		
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: AuthInterceptor,
+			multi: true,
+		},
 	]
 })
 export class AuthModule {
 	constructor (@Optional() @SkipSelf() parentModule: AuthModule) {
 		if (parentModule) {
 		  throw new Error(
-			'AuthModule is already loaded. Import it in the AppModule/CoreModule only');
+			'AuthModule is already loaded. Import it in the AppModule/CoreModule only.');
 		}
-	  }
+		if(!AuthModule.isConfigured) {
+			throw new Error(
+				'AuthModule is not configured.');
+		}
+
+	}
+	static isConfigured:boolean = false;
+
+	static configure(config: IAuthModuleConfig): ModuleWithProviders {
+		AuthModule.isConfigured = true;
+		return {
+			ngModule: AuthModule,
+			providers: [
+			  {provide: AuthenticationService, useClass: config.authenticationService },
+			  {provide: 'fallbackUrl', useValue: config.fallbackPageUrl}
+			]
+		};
+	}
+
 }
