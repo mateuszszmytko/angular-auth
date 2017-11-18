@@ -1,10 +1,9 @@
 export { AuthModule } from './src/auth.module';
-export { SharedAuthModule } from './src/shared-auth.module';
-export { IAuthConfig } from './src/auth.config';
 
-export * from './src/guards';
-export * from './src/interceptors';
-export * from './src/interfaces';
-export * from './src/models';
-export * from './src/services';
+
+export * from './src/lib/guards/auth.guard';
+export * from './src/lib/interceptors/auth.interceptor';
+export * from './src/lib/interfaces';
+export * from './src/lib/models';
+export * from './src/lib/services';
 
