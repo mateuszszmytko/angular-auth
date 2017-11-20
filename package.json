@@ -1,6 +1,6 @@
 {
   "name": "@raa/angular-auth",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "description": "Simple authentication module for angular.",
   "main": "index.ts",
   "scripts": {
@@ -15,7 +15,9 @@
     "angular",
     "auth"
   ],
-  
+  "dependencies": {
+    
+  },
   "devDependencies": {
     "@angular/cli": "^1.5.0",
     "@angular/common": "^5.0.0",

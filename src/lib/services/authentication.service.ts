@@ -15,8 +15,9 @@ export enum AuthenticateResponseStatus {
 }
 
 export interface IAuthenticationServiceConstructor {
-    new (_http: HttpClient, _tokenStorage: TokenStorageService): AuthenticationService;
+	new (...vals: Array<any>): AuthenticationService;
 }
+
 
 @Injectable()
 export abstract class AuthenticationService {
@@ -34,6 +35,7 @@ export abstract class AuthenticationService {
 				(response) => {
 					this._tokenStorage.token = response;
 					handler.next(AuthenticateResponseStatus.Success)
+					handler.complete();
 				},
 				(error) => {
 					if (error instanceof HttpErrorResponse && error.status === 401) {
@@ -41,11 +43,12 @@ export abstract class AuthenticationService {
 					} else {
 						handler.next(AuthenticateResponseStatus.Failure)
 					}
+					handler.complete();
 					
 				}
 			);
 
-			handler.complete();
+			
 		});
 			
 			

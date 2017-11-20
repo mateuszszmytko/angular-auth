@@ -6,12 +6,14 @@ import { TokenStorageService,
 	AuthenticationService, IAuthenticationServiceConstructor } from './lib/services';
 import { IAuthModuleConfig } from './lib/interfaces';
 import { AuthInterceptor } from './lib/interceptors/auth.interceptor';
+import { AuthGuard } from './lib/guards/auth.guard';
 
 
 
 @NgModule({
 	imports: [HttpClientModule],
 	providers: [
+		AuthGuard,
 		{ provide: TokenStorageService, useClass: TokenStorageService},		
 		{
 			provide: HTTP_INTERCEPTORS,
@@ -26,16 +28,9 @@ export class AuthModule {
 		  throw new Error(
 			'AuthModule is already loaded. Import it in the AppModule/CoreModule only.');
 		}
-		if(!AuthModule.isConfigured) {
-			throw new Error(
-				'AuthModule is not configured.');
-		}
 
 	}
-	static isConfigured:boolean = false;
-
 	static configure(config: IAuthModuleConfig): ModuleWithProviders {
-		AuthModule.isConfigured = true;
 		return {
 			ngModule: AuthModule,
 			providers: [

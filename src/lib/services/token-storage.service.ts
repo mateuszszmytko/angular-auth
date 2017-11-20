@@ -26,7 +26,7 @@ export class TokenStorageService {
 	public get isTokenExpired(): boolean {
 		try {
             return this.jwtHelper.isTokenExpired(this.token);
-        } catch {
+        } catch(e) {
             return true;
         }
 	}
@@ -35,7 +35,7 @@ export class TokenStorageService {
 		try {
             this.jwtHelper.decodeToken(this.token)
             return true;
-        } catch {
+        } catch(e) {
             return false;
         }
     }
