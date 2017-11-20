@@ -51,5 +51,5 @@ export class NavComponent implements OnInit {
 ```
 
 
-### Examples
-//todo
+### Example
+Full example [here](https://github.com/mateuszszmytko/angular-auth-example)
